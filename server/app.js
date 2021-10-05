@@ -12,9 +12,13 @@ const logger = require("morgan");
 const protect = require("./middleware/auth");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
+
+const customerRouter = require("./routes/customer");
+const paymentRouter = require("./routes/payment");
 const profileRouter = require("./routes/profileRouter");
 const conversationRouter = require("./routes/conversation");
 const messageRouter = require("./routes/message");
+
 
 const { json, urlencoded } = express;
 
@@ -48,8 +52,11 @@ app.use((req, res, next) => {
 app.use("/profile", protect, profileRouter);
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+
 app.use("/conversations", protect, conversationRouter);
 app.use("/messages", protect, messageRouter);
+app.use("/customer", customerRouter);
+app.use("/payment", paymentRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

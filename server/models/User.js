@@ -21,9 +21,14 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    stripeId: {
+      type: String,
+      required: false,
+  },
   },
   { versionKey: false }
 );
+
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
