@@ -1,59 +1,48 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+Schema = mongoose.Schema;
+const User = require("./User");
 
-const profileSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
-    },
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    birth: {
-      type: String,
-      required: true,
-    },
-    photos: [String],
-    gender: {
-      type: String,
-      enum: ["Male", "Female", "Other"],
-      default: "Male",
-    },
-    availability: [String],
-    isSitter: {
-      type: Boolean,
-      default: false,
-    },
-    hourlyWage: {
-      type: Number,
-    },
+const profileSchema = new mongoose.Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
-);
+  firstName: {
+    type: String,
+    required: true,
+    minlength: 3,
+    maxlength: 30,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    minlength: 3,
+    maxlength: 30,
+  },
+  address: {
+    type: String,
+    minlength: 3,
+    maxlength: 200,
+  },
+  phone: {
+    type: String,
+    minlength: 5,
+    maxlength: 20,
+  },
+  description: {
+    type: String,
+    minlength: 3,
+    maxlength: 1000,
+  },
+  birth: {
+    type: String,
+    minlength: 3,
+    maxlength: 30,
+  },
+  photos: [String],
+  gender: String,
+  availability: [String],
+});
 
 module.exports = Profile = mongoose.model("profile", profileSchema);

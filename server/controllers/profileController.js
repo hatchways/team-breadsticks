@@ -1,151 +1,108 @@
 const Profile = require("../models/ProfileModel");
+const User = require("../models/User");
 const mongoose = require("mongoose");
-const { capitalize, formatAddress } = require("../utils/helperFunctions");
 
-// @route POST /profile
-// @access private
-// @desc Create a default profile of a logged-in user. Note: this profile is not a 'Sitter' profile
+const toObjectId = mongoose.Types.ObjectId;
+
+// create new profile using given arguments
+
 exports.createProfile = async (req, res, next) => {
   try {
-    const { firstName, lastName, gender, birth, phone, address, description } =
+    const { firstName, lasttName, phone, address, gender, description } =
       req.body;
 
     const userId = req.user.id;
-
-    let profile = await Profile.findOne({ userId });
-
-    if (profile) {
-      res.status(404);
-      throw new Error("Profile already exists");
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(401).json({ message: "Not Authorized" });
     }
 
+    if (
+      firstName === undefined ||
+      lasttName === undefined ||
+      phone === undefined ||
+      address === undefined ||
+      gender === undefined ||
+      description === undefined
+    ) {
+      res.status(401).json({ message: "Complete the form please" });
+    }
     const data = {
-      userId,
-      firstName: capitalize(firstName),
-      lastName: capitalize(lastName),
-      gender,
-      birth,
-      phone,
-      address: formatAddress(address),
-      description,
+      userId: toObjectId(userId),
+      firstName: firstName.trim().toString(),
+      lasttName: lasttName.trim().toString(),
+      phone: phone.trim().toString(),
+      address: address.trim().toString(),
+      gender: gender.trim().toString(),
+      description: description.trim().toString(),
     };
-
-    profile = new Profile(data);
-    await profile.save();
+    const newProfile = new Profile(data);
+    const profile = await newProfile.save();
     res.status(201).json(profile);
   } catch (err) {
     next(err);
   }
 };
 
-// @route PUT /profile/:profileId
-// @access private
-// @desc Update a profile of a logged-in user ONLY. It should not be able to update other user's profile.
-// Note: this profile can be set up as a 'Sitter' profile here.
-// Extra fields for Sitter: isSitter(Boolean), title(String), hourlyWage(Number)
+// updating existing profile using given id and new data
+
 exports.updateProfile = async (req, res, next) => {
   try {
-    const { profileId } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(profileId)) {
-      res.status(400);
-      throw new Error("Invalid profileId");
-    }
+    const { firstName, lasttName, phone, address, gender, description } =
+      req.body;
 
     const userId = req.user.id;
-
-    const {
-      firstName,
-      lastName,
-      gender,
-      birth,
-      phone,
-      address,
-      description,
-      isSitter,
-      title,
-      hourlyWage,
-    } = req.body;
-
-    const data = {
-      userId,
-      firstName: capitalize(firstName),
-      lastName: capitalize(lastName),
-      gender,
-      birth,
-      phone,
-      address: formatAddress(address),
-      description,
-      title,
-      isSitter,
-      hourlyWage,
-    };
-
-    const updatedProfile = await Profile.findOneAndUpdate(
-      { _id: profileId, userId },
-      data,
-      {
-        new: true,
-      }
-    );
-
-    if (!updatedProfile) {
-      res.status(404);
-      throw new Error(
-        "Couldn't find a profile with the profileId for this user"
-      );
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(401).json({ message: "Not Authorized" });
     }
 
-    res.status(200).json(updatedProfile);
+    if (
+      firstName === undefined ||
+      lasttName === undefined ||
+      phone === undefined ||
+      address === undefined ||
+      gender === undefined ||
+      description === undefined
+    ) {
+      res.status(401).json({ message: "Complete the form please" });
+    }
+    const data = {
+      userId: toObjectId(userId),
+      firstName: firstName.trim().toString(),
+      lasttName: lasttName.trim().toString(),
+      phone: phone.trim().toString(),
+      address: address.trim().toString(),
+      gender: gender.trim().toString(),
+      description: description.trim().toString(),
+    };
+    await Profile.findOneAndUpdate({ userId }, data);
+    res.status(200).json({ message: " your profile is updated" });
   } catch (err) {
     next(err);
   }
 };
 
-// @route GET /profile/:profileId
-// @access private
-// @desc Get a profile with given profileId. profileId can be either a logged in user's profileId or other user's profileId.
-// (e.g.,)
-// 1. No matter you are a pet owner or a sitter, you want to see other pet sitter' profile in ProfileDetail page.
-//    (from Listings page, click a 'pet sitter detail card', you will see a ProfileDetail of the pet sitter)
-// 2. Assume you already have your profile and just want to update your profile in EditProfile page.
-//    In this case, when you access your EditProfile Page, your existing profile data should be displayed
-//    in EditProfile Page before you edit your profile.
+// find a profile using user id
+
 exports.findProfile = async (req, res, next) => {
   try {
-    const { profileId } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(profileId)) {
-      res.status(400);
-      throw new Error("Invalid profileId");
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(401).json({ message: "Not Authorized" });
     }
-
-    const profile = await Profile.findOne({ _id: profileId });
-
-    if (!profile) {
-      res.status(404);
-      throw new Error("Profile not found");
-    }
-
+    const profile = await Profile.findOne({ userId });
     res.status(200).json(profile);
   } catch (err) {
     next(err);
   }
 };
 
-// @route GET /profile
-// @access private
-// @desc Get all sitter profiles only.
-// No matter you are a pet owner or a sitter, you want to see all other pet sitter' profile in Listings page.
+// Get All profiles
 exports.getAllProfiles = async (req, res, next) => {
   try {
-    const profiles = await Profile.find({ isSitter: true });
-
-    if (profiles.length === 0) {
-      res.status(404);
-      throw new Error("No Sitter Profiles");
-    }
-
+    const profiles = await Profile.find();
     res.status(200).json(profiles);
   } catch (err) {
     next(err);

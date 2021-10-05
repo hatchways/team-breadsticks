@@ -1,16 +1,15 @@
 import { Grid, Box, Card, CardContent, Avatar, Rating, Typography } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import useStyles from './useStyles';
+import { Sitter } from '../../Profile/ProfileDetail/sampleData';
 import { Link } from 'react-router-dom';
-import { Profile } from '../../../interface/Profile';
 
 interface Props {
-  sitter: Profile;
+  sitter: Sitter;
 }
 
 const SitterCard = ({ sitter }: Props): JSX.Element => {
   const classes = useStyles();
-  const mockRandomRating = Math.floor(1 + Math.random() * 5);
 
   return (
     <Grid item xs={12} sm={5} md={4} className={classes.root}>
@@ -27,20 +26,20 @@ const SitterCard = ({ sitter }: Props): JSX.Element => {
             <Avatar
               variant="circular"
               className={classes.avatar}
-              src={sitter.photos[1]}
-              alt={`${sitter.firstName}-${sitter.lastName}-profile-image`}
+              src={sitter.userProfileImage}
+              alt={`${sitter.sitterFirstName}-${sitter.sitterLastName}-profile-image`}
               component={Link}
-              to={`/listings/${sitter._id}`}
+              to={`/listings/${sitter.sitterId}`}
             />
-            <Typography component="h5" variant="h5" className={classes.sitterName} align="center">
-              {`${sitter.firstName} ${sitter.lastName}`}
+            <Typography component="h5" variant="h5" className={classes.sitterName}>
+              {`${sitter.sitterFirstName} ${sitter.sitterLastName}`}
             </Typography>
             <Typography variant="body2" className={classes.sitterShortDesc}>
-              {sitter.title}
+              {sitter.sitterShortDesc}
             </Typography>
-            <Rating name="read-only" size="small" value={mockRandomRating} readOnly className={classes.rating} />
+            <Rating name="read-only" size="small" value={sitter.sitterRating} readOnly className={classes.rating} />
             <Typography variant="body1" align="center" className={classes.sitterAboutMe}>
-              {sitter.description.slice(0, 60)}
+              {sitter.sitterAboutMe.slice(0, 60)}
             </Typography>
             <Box
               width="95%"
@@ -52,11 +51,11 @@ const SitterCard = ({ sitter }: Props): JSX.Element => {
               <Box display="flex" alignItems="center">
                 <LocationOnIcon className={classes.locationIcon} />
                 <Typography variant="body2" sx={{ ml: 0.5 }} className={classes.locationText}>
-                  {sitter.address}
+                  {`${sitter.sitterCity}, ${sitter.sitterProvince}`}
                 </Typography>
               </Box>
               <Typography component="h6" variant="h6" align="center" className={classes.wage}>
-                ${sitter.hourlyWage}/hr
+                ${sitter.sitterWage}/hr
               </Typography>
             </Box>
           </CardContent>
