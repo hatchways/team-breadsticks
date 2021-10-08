@@ -46,6 +46,13 @@ const AuthMenuDesktop = ({ asideText, linkTo, notifCount }: Props): JSX.Element 
             btnText="Messages"
             variant="text"
           />
+          <AuthNavItem
+            isButton
+            classes={`${classes.headerBtn} ${classes.loginBtn}`}
+            linkTo="/payment"
+            btnText="Payment"
+            variant="outlined"
+          />
         </>
       ) : (
         <>
