@@ -12,6 +12,8 @@ import { createNotification } from '../../../../../helpers/APICalls/notification
 import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useHistory } from 'react-router-dom';
 import useStyles from './useStyles';
+import { useHistory } from 'react-router-dom';
+import { usePayment } from '../../../../../context/usePaymentContext';
 
 interface Props {
   sitter: Profile;
@@ -25,6 +27,9 @@ const validationSchema = Yup.object().shape({
 
 const BookingForm = ({ sitter }: Props): JSX.Element => {
   const classes = useStyles();
+
+  const history = useHistory();
+  const { handleServiceRequestDetails } = usePayment();
   const [dateRange, setDateRange] = useState<DateRange<Date | null>>([null, null]);
   const { updateSnackBarMessage } = useSnackBar();
   const history = useHistory();
@@ -33,6 +38,22 @@ const BookingForm = ({ sitter }: Props): JSX.Element => {
     { dateRange }: { dateRange: DateRange<Date> },
     { setSubmitting, resetForm }: FormikHelpers<{ dateRange: DateRange<Date> }>,
   ) => {
+            // 'setSubmitting' will be used when we send 'submit request' to backend
+    // I guess it's related to 'isSubmitting' and 'onSubmit' in Formik
+
+    const requiredDateRange: any = dateRange;
+    const requestedHours: number = Math.abs(requiredDateRange[0] - requiredDateRange[1]) / 36e5;
+    const serviceCharge: number = requestedHours * +sitter.sitterWage;
+
+    handleServiceRequestDetails({
+      sitterFirstName: sitter.sitterFirstName,
+      sitterLastName: sitter.sitterLastName,
+      perHourCharge: sitter.sitterWage,
+      requestedHours,
+      serviceCharge,
+    });
+
+    history.push('/payment');
     if (dateRange[0] && dateRange[1]) {
       try {
         await createRequest(sitter.userId, dateRange?.[0], dateRange?.[1]);
@@ -54,6 +75,7 @@ const BookingForm = ({ sitter }: Props): JSX.Element => {
         }
       }
     }
+
     setSubmitting(false);
     setDateRange([null, null]);
     resetForm({ values: { dateRange: [null, null] } });

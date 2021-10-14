@@ -12,7 +12,9 @@ const ProfileDetail = (): JSX.Element => {
   const params: { sitterId: string } = useParams();
   const { sitterId } = params;
 
+
   const [sitter, setSitter] = useState<Profile | null | undefined>(null);
+
 
   const { updateSnackBarMessage } = useSnackBar();
 
