@@ -1,12 +1,29 @@
-## Project Name
+## Pet Sitter
 
-This is a little description about your project.
-
-**Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
-
-**Contributors**: [Hatchways](https://github.com/hatchways) (replace)
+A Full-Stack Wep Application that makes it easier for dog owners to find a good sitter - especially in real-time.
 
 ---
+
+**Tech Stack:** 
+- React.js / Material UI
+- Typescript
+- Express.js
+- Node.js
+- MongoDB
+- JWT
+- Socket.io
+- Stripe API
+
+**Contributors**: [Jaewhee Seo(Jay)](https://github.com/jstyle5) | [Alex Reyes](https://github.com/iamalx) | [Uche Okoroafor](https://github.com/uche-okoroafor) | [Ashraf Eid](https://github.com/ashrafcoding)
+
+---
+
+## Features
+### Feature Overview
+-
+-
+-
+
 
 ### Getting Started
 
@@ -19,7 +36,8 @@ This is a little description about your project.
 1. Go into the server directory `cd server`
 2. Run `npm install` to install packages
 3. Create your environment variable (.env) file
-4. Run `npm run dev` to start the server
+4. Run `npm run seed` to seed data into `MongoDB`
+5. Run `npm run dev` to start the server
 
 ---
 
