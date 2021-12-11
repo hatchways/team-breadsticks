@@ -13,7 +13,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import * as Yup from 'yup';
 import { Formik, Form, FormikHelpers } from 'formik';
 import AvailabilityForm from './AvailabilityForm/AvailabilityForm';
-import patchProfile from '../../../helpers/APICalls/updateProfile';
+import { patchProfile } from '../../../helpers/APICalls/updateProfile';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';

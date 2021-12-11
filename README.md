@@ -1,10 +1,11 @@
-## Project Name
+## DogKet
 
-This is a little description about your project.
+Ths is a website that makes it easier for dog owners to find a dog sitter.
+
 
 **Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
 
-**Contributors**: [Hatchways](https://github.com/hatchways) (replace)
+**Contributors**:Bonnie,Sina,Jaewhee,Li,uche 
 
 ---
 

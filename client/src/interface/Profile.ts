@@ -35,3 +35,21 @@ export interface ProfileApiData {
   error?: string;
   profiles?: Profile[];
 }
+
+export interface Profiles {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  birthDate: string;
+  email: string;
+  _id: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  country: string;
+  description: string;
+  available: boolean;
+  month: string;
+  year: string;
+  day: string;
+}

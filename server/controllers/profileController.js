@@ -1,4 +1,5 @@
 const Profile = require("../models/ProfileModel");
+const User = require("../models/User");
 const mongoose = require("mongoose");
 const { capitalize, formatAddress } = require("../utils/helperFunctions");
 const asyncHandler = require("express-async-handler");
@@ -40,6 +41,50 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 // @route PUT /profile/:profileId
 // @access private
 // @desc Update a profile of a logged-in user ONLY. It should not be able to update other user's profile.
+
+exports.setProfile = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const {
+    firstName,
+    lastName,
+    gender,
+    birthDate,
+    phoneNumber,
+    email,
+    address,
+    description,
+  } = req.body;
+
+  const profile = new Profile({
+    firstName,
+    lastName,
+    gender,
+    birthDate,
+    phoneNumber,
+    email,
+    address,
+    description,
+  });
+
+  const updateStatus = await User.updateOne(
+    { _id: userId },
+    {
+      $set: {
+        profile: profile,
+      },
+    }
+  );
+
+  console.log(updateStatus);
+  if (updateStatus.nModified === 1) {
+    return res.status(201).json({ success: true });
+  } else {
+    return res.status(201).json({ success: false });
+  }
+
+  throw new Error("something went wrong");
+});
+
 exports.updateProfile = asyncHandler(async (req, res, next) => {
   try {
     const { profileId } = req.params;
