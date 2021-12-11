@@ -6,7 +6,7 @@ const profileSchema = new mongoose.Schema(
     userId: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: false,
+      required: true,
     },
     firstName: {
       type: String,
@@ -20,17 +20,20 @@ const profileSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phoneNumber: {
+    phone: {
       type: String,
-      required: false,
+      required: true,
+    },
+    title: {
+      type: String,
     },
     description: {
       type: String,
       required: true,
     },
-    birthDate: {
-      type: Date,
-      default: null,
+    birth: {
+      type: String,
+      required: true,
     },
     photos: [String],
     gender: {
