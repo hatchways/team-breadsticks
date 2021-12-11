@@ -6,8 +6,5 @@
   },
   "scripts": {
     "prepare": "husky install"
-  },
-  "dependencies": {
-    "axios": "^0.24.0"
   }
 }
