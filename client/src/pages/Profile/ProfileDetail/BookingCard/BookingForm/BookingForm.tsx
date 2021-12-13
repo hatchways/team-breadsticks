@@ -12,7 +12,6 @@ import { createNotification } from '../../../../../helpers/APICalls/notification
 import { useSnackBar } from '../../../../../context/useSnackbarContext';
 import { useHistory } from 'react-router-dom';
 import useStyles from './useStyles';
-import { useHistory } from 'react-router-dom';
 import { usePayment } from '../../../../../context/usePaymentContext';
 
 interface Props {
@@ -28,7 +27,6 @@ const validationSchema = Yup.object().shape({
 const BookingForm = ({ sitter }: Props): JSX.Element => {
   const classes = useStyles();
 
-  const history = useHistory();
   const { handleServiceRequestDetails } = usePayment();
   const [dateRange, setDateRange] = useState<DateRange<Date | null>>([null, null]);
   const { updateSnackBarMessage } = useSnackBar();
@@ -38,17 +36,17 @@ const BookingForm = ({ sitter }: Props): JSX.Element => {
     { dateRange }: { dateRange: DateRange<Date> },
     { setSubmitting, resetForm }: FormikHelpers<{ dateRange: DateRange<Date> }>,
   ) => {
-            // 'setSubmitting' will be used when we send 'submit request' to backend
+    // 'setSubmitting' will be used when we send 'submit request' to backend
     // I guess it's related to 'isSubmitting' and 'onSubmit' in Formik
 
     const requiredDateRange: any = dateRange;
     const requestedHours: number = Math.abs(requiredDateRange[0] - requiredDateRange[1]) / 36e5;
-    const serviceCharge: number = requestedHours * +sitter.sitterWage;
+    const serviceCharge: number = requestedHours * +sitter.hourlyWage;
 
     handleServiceRequestDetails({
-      sitterFirstName: sitter.sitterFirstName,
-      sitterLastName: sitter.sitterLastName,
-      perHourCharge: sitter.sitterWage,
+      sitterFirstName: sitter.firstName,
+      sitterLastName: sitter.lastName,
+      perHourCharge: sitter.hourlyWage,
       requestedHours,
       serviceCharge,
     });
