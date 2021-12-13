@@ -1,4 +1,4 @@
-import Avatar from '@material-ui/core/Avatar';
+/* eslint-disable prettier/prettier */ import Avatar from '@material-ui/core/Avatar';
 import { User } from '../../interface/User';
 
 interface Props {

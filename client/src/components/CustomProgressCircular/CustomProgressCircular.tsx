@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@material-ui/core';
+/* eslint-disable prettier/prettier */ import { Box, CircularProgress } from '@material-ui/core';
 
 const CustomProgressCircular = (): JSX.Element => {
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 import useStyles from './useStyles';

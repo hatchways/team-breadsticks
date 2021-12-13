@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { Box } from '@material-ui/core';
 import { User } from '../../interface/User';
 import { useAuth } from '../../context/useAuthContext';

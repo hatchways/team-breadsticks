@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export const iframeStyles = {
   base: {
     fontSize: '16px',

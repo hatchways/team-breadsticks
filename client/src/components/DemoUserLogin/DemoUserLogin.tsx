@@ -1,4 +1,4 @@
-import { Button, MenuItem } from '@material-ui/core';
+/* eslint-disable prettier/prettier */ import { Button, MenuItem } from '@material-ui/core';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { demoUser } from '../../mocks/demoUser';

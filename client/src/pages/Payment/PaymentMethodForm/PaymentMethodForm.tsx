@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { withRouter } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { TextField, CircularProgress } from '@material-ui/core';
+import { TextField, CircularProgress, Box } from '@material-ui/core';
 import { StripeCardElement, StripeCardElementOptions, StripeCardNumberElement } from '@stripe/stripe-js';
 import { Formik, FormikHelpers } from 'formik';
 import useStyles from '../useStyles';
@@ -214,11 +215,11 @@ function PaymentMethodForm({
             size="small"
           />
 
-          <div className={classes.cardElementContainer}>
+          <Box className={classes.cardElementContainer}>
             <CardElement options={cardElementOpts} />
-          </div>
+          </Box>
 
-          <div className={classes.buttonContainer}>
+          <Box className={classes.buttonContainer}>
             {' '}
             <Button type="submit" variant="contained" color="primary" className={classes.submitButton}>
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Save'}
@@ -226,7 +227,7 @@ function PaymentMethodForm({
             <Button onClick={handleCloseDialog} variant="contained" color="secondary" className={classes.cancelButton}>
               Cancel
             </Button>
-          </div>
+          </Box>
         </form>
       )}
     </Formik>

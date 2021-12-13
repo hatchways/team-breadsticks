@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+/* eslint-disable prettier/prettier */ import { NavLink } from 'react-router-dom';
 import { Button, Typography } from '@material-ui/core';
 
 interface Props {

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Box, Typography } from '@material-ui/core';
 import { Message } from '../../../../../interface/Conversation';
 import moment from 'moment';

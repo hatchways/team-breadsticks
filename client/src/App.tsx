@@ -17,17 +17,17 @@ import ProfileDetail from './pages/Profile/ProfileDetail/ProfileDetail';
 import Landing from './pages/Landing/Landing';
 import Notifications from './pages/Notifications/Notifications';
 import Messages from './pages/Messages/Messages';
- import PaymentProfile from './pages/Payment/Payment';
+import PaymentProfile from './pages/Payment/Payment';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { PaymentProfilesProvider } from './context/usePaymentProfilesContext';
 import { PaymentProvider } from './context/usePaymentContext';
 import Bookings from './pages/Bookings/Bookings';
 import './App.css';
-
+import { SocketProvider } from './context/useSocketContext';
 
 const stripePromise = loadStripe(
-  
+  'pk_test_51JdfCrHTISnlklzNeWCPnnzwLCfvEgPODCQJ8cYe3Z1h83MPIJFsMlTaXkR8NGyYt97rx5I8tMB4NJPtHsLx8fLY00uPHJGn0h',
 );
 
 function App(): JSX.Element {

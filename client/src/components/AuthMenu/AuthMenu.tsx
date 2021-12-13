@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+/* eslint-disable prettier/prettier */ import { useState, MouseEvent } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';

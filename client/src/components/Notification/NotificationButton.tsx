@@ -1,4 +1,4 @@
-import * as React from 'react';
+/* eslint-disable prettier/prettier */ import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import Button from '@mui/material/Button';
 import useStyles from './NotificationStyles/NotificationButton';
